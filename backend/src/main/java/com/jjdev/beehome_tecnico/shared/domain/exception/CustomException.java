@@ -1,4 +1,4 @@
-package com.jjdev.beehome_tecnico.shared.infrastructure.web;
+package com.jjdev.beehome_tecnico.shared.domain.exception;
 
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
