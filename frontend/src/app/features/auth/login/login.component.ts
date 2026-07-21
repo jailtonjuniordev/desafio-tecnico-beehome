@@ -5,10 +5,10 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { HttpErrorResponse } from '@angular/common/http';
 import { AuthService } from '../../../core/services/auth.service';
+import { NotificationService } from '../../../core/services/notification.service';
 
 @Component({
   selector: 'app-login',
@@ -20,7 +20,6 @@ import { AuthService } from '../../../core/services/auth.service';
     MatFormFieldModule,
     MatIconModule,
     MatInputModule,
-    MatSnackBarModule,
     MatProgressBarModule,
   ],
   templateUrl: './login.component.html',
@@ -30,10 +29,9 @@ export class LoginComponent {
   private readonly fb = inject(FormBuilder);
   private readonly authService = inject(AuthService);
   private readonly router = inject(Router);
-  private readonly snackBar = inject(MatSnackBar);
+  private readonly notification = inject(NotificationService);
 
   readonly loading = signal(false);
-  readonly formError = signal<string | null>(null);
   readonly hidePassword = signal(true);
 
   readonly form = this.fb.nonNullable.group({
@@ -46,8 +44,6 @@ export class LoginComponent {
   }
 
   onSubmit(): void {
-    this.formError.set(null);
-
     if (this.form.invalid) {
       this.form.markAllAsTouched();
       return;
@@ -57,14 +53,12 @@ export class LoginComponent {
     this.authService.login(this.form.getRawValue()).subscribe({
       next: () => {
         this.loading.set(false);
-        this.snackBar.open('Login realizado com sucesso.', 'X', {
-          duration: 3000,
-        });
+        this.notification.success('Login realizado com sucesso.');
         this.router.navigate(['/tasks']);
       },
       error: (error: HttpErrorResponse) => {
         this.loading.set(false);
-        this.formError.set(this.resolveErrorMessage(error));
+        this.notification.error(this.resolveErrorMessage(error));
       },
     });
   }

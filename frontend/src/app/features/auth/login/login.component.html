@@ -48,10 +48,6 @@
         }
       </mat-form-field>
 
-      @if (formError()) {
-        <p class="form-error" role="alert">{{ formError() }}</p>
-      }
-
       <div class="auth-actions">
         <button mat-flat-button class="bh-cta" type="submit" [disabled]="loading()">
           Entrar
