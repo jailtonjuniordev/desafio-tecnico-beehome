@@ -1,26 +1,25 @@
 import { Component, inject, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Router, RouterLink } from '@angular/router';
-import { MatButtonModule } from '@angular/material/button';
+import { Router } from '@angular/router';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatButtonModule } from '@angular/material/button';
 import { HttpErrorResponse } from '@angular/common/http';
 import { AuthService } from '../../../core/services/auth.service';
 import { NotificationService } from '../../../core/services/notification.service';
+import { AuthModalComponent } from '../../../shared/components/auth-modal/auth-modal.component';
 
 @Component({
   selector: 'app-login',
   standalone: true,
   imports: [
     ReactiveFormsModule,
-    RouterLink,
-    MatButtonModule,
     MatFormFieldModule,
     MatIconModule,
     MatInputModule,
-    MatProgressBarModule,
+    MatButtonModule,
+    AuthModalComponent,
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
