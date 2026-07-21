@@ -1,0 +1,51 @@
+.bh-snack {
+  min-width: min(360px, 92vw);
+  background: var(--bh-ink);
+  color: #ffffff;
+  border-radius: var(--bh-radius-input-start) var(--bh-radius-input-end) var(--bh-radius-input-end) var(--bh-radius-input-start);
+  overflow: hidden;
+  box-shadow: 0 8px 28px rgba(3, 5, 3, 0.28);
+}
+
+.bh-snack-body {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  padding: 0.85rem 0.5rem 0.75rem 1rem;
+}
+
+.bh-snack-message {
+  flex: 1;
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.35;
+  font-weight: 500;
+}
+
+.bh-snack-close {
+  color: #ffffff !important;
+  width: 36px;
+  height: 36px;
+  flex-shrink: 0;
+}
+
+.bh-snack-progress {
+  display: block;
+  height: 3px;
+  overflow: hidden;
+  border-radius: 0 0 var(--bh-radius-input-end) var(--bh-radius-input-start);
+  line-height: 0;
+
+  ::ng-deep .mdc-linear-progress,
+  ::ng-deep .mdc-linear-progress__buffer,
+  ::ng-deep .mdc-linear-progress__bar,
+  ::ng-deep .mdc-linear-progress__bar-inner {
+    border-radius: inherit;
+  }
+}
+
+.bh-snack-error .bh-snack-progress,
+.bh-snack-success .bh-snack-progress {
+  --mdc-linear-progress-active-indicator-color: var(--bh-yellow);
+  --mdc-linear-progress-track-color: rgba(255, 255, 255, 0.18);
+}

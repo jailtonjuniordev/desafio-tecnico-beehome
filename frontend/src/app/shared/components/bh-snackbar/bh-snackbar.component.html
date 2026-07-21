@@ -1,0 +1,19 @@
+<div class="bh-snack" [class.bh-snack-error]="data.variant === 'error'" [class.bh-snack-success]="data.variant === 'success'">
+  <div class="bh-snack-body">
+    <p class="bh-snack-message">{{ data.message }}</p>
+    <button
+      mat-icon-button
+      type="button"
+      class="bh-snack-close"
+      aria-label="Fechar"
+      (click)="dismiss()"
+    >
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+  <mat-progress-bar
+    class="bh-snack-progress"
+    mode="determinate"
+    [value]="progress()"
+  ></mat-progress-bar>
+</div>
