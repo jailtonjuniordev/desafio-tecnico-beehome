@@ -1,10 +1,10 @@
 # desafio-tecnico-beehome
 
-Sistema de gerenciamento de tarefas (desafio tecnico BeeHome): backend Spring Boot + frontend Angular.
+Sistema de gerenciamento de tarefas (desafio técnico BeeHome): backend Spring Boot + frontend Angular.
 
-## Repositorios / pastas
+## Repositórios / pastas
 
-| Pasta | Descricao |
+| Pasta | Descrição |
 |-------|-----------|
 | [`backend/`](backend/) | API REST (Java 21, Spring Boot, MySQL, JWT) |
 | [`frontend/`](frontend/) | Interface Angular |
@@ -12,7 +12,7 @@ Sistema de gerenciamento de tarefas (desafio tecnico BeeHome): backend Spring Bo
 
 ## Backend
 
-Documentacao completa da API (endpoints, regras de negocio, Swagger e exemplos):
+Documentação completa da API (endpoints, regras de negócio, Swagger e exemplos):
 
 - [backend/README.md](backend/README.md)
 - Swagger UI (com a API no ar): http://localhost:8080/swagger-ui.html
@@ -20,9 +20,9 @@ Documentacao completa da API (endpoints, regras de negocio, Swagger e exemplos):
 
 ## Subir o ambiente com Docker
 
-O `docker-compose.yml` sobe os servicos juntos para facilitar os testes. Configure o `.env` na raiz (ou use o de `backend/.env.example` como base).
+O `docker-compose.yml` sobe os serviços juntos para facilitar os testes. Configure o `.env` na raiz (ou use o de `backend/.env.example` como base).
 
-**Banco + Backend + Frontend** (padrao):
+**Banco + Backend + Frontend** (padrão):
 
 ```bash
 docker compose up -d --build
