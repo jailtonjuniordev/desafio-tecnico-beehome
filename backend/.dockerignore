@@ -1,0 +1,15 @@
+target/
+.idea/
+.env
+.env.*
+!.env.example
+postman/
+HELP.md
+*.iml
+.classpath
+.project
+.settings/
+.git/
+.gitignore
+.gitattributes
+mvnw.cmd
