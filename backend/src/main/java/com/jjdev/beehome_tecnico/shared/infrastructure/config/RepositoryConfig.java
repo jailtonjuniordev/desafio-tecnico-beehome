@@ -8,7 +8,8 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @EnableJpaRepositories(
         basePackages = {
                 "com.jjdev.beehome_tecnico.shared.infrastructure.persistence.repository",
-                "com.jjdev.beehome_tecnico.auth.infrastructure.persistence.repository"
+                "com.jjdev.beehome_tecnico.auth.infrastructure.persistence.repository",
+                "com.jjdev.beehome_tecnico.task.infrastructure.persistence.repository"
         },
         repositoryBaseClass = BaseRepositoryImpl.class
 )

@@ -22,7 +22,9 @@ import java.lang.reflect.Field;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.time.ZoneId;
+import java.time.ZoneOffset;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -388,11 +390,10 @@ public class BaseRepositoryImpl<T, ID> extends SimpleJpaRepository<T, ID> {
             if (value instanceof Map) {
                 Map<String, Object> periodMap = (Map<String, Object>) value;
                 List<Predicate> predicates = new ArrayList<>();
+                Object startValue = periodMap.get("startDate");
+                Object endValue = periodMap.get("endDate");
 
                 if (path.getJavaType() == LocalDateTime.class) {
-                    Object startValue = periodMap.get("startDate");
-                    Object endValue = periodMap.get("endDate");
-
                     Expression<LocalDateTime> dateTimePath = path.as(LocalDateTime.class);
 
                     if (startValue != null) {
@@ -413,6 +414,38 @@ public class BaseRepositoryImpl<T, ID> extends SimpleJpaRepository<T, ID> {
                             predicates.add(
                                     cb.lessThanOrEqualTo(
                                             dateTimePath,
+                                            cb.literal(endDateTime)
+                                    )
+                            );
+                        }
+                    }
+
+                    return predicates.isEmpty() ?
+                            cb.conjunction() :
+                            cb.and(predicates.toArray(new Predicate[0]));
+                }
+
+                if (path.getJavaType() == OffsetDateTime.class) {
+                    Expression<OffsetDateTime> offsetDateTimePath = path.as(OffsetDateTime.class);
+
+                    if (startValue != null) {
+                        OffsetDateTime startDateTime = convertToOffsetDateTime(startValue, false);
+                        if (startDateTime != null) {
+                            predicates.add(
+                                    cb.greaterThanOrEqualTo(
+                                            offsetDateTimePath,
+                                            cb.literal(startDateTime)
+                                    )
+                            );
+                        }
+                    }
+
+                    if (endValue != null) {
+                        OffsetDateTime endDateTime = convertToOffsetDateTime(endValue, true);
+                        if (endDateTime != null) {
+                            predicates.add(
+                                    cb.lessThanOrEqualTo(
+                                            offsetDateTimePath,
                                             cb.literal(endDateTime)
                                     )
                             );
@@ -526,6 +559,67 @@ public class BaseRepositoryImpl<T, ID> extends SimpleJpaRepository<T, ID> {
 
         } catch (Exception e) {
             log.error("Erro ao converter data: {}", e.getMessage(), e);
+            return null;
+        }
+    }
+
+    private OffsetDateTime convertToOffsetDateTime(Object dateValue, boolean isEndDate) {
+        if (dateValue == null) {
+            return null;
+        }
+
+        try {
+            if (dateValue instanceof OffsetDateTime) {
+                return (OffsetDateTime) dateValue;
+            }
+
+            if (dateValue instanceof LocalDateTime) {
+                return ((LocalDateTime) dateValue).atOffset(ZoneOffset.UTC);
+            }
+
+            if (dateValue instanceof LocalDate) {
+                LocalDate localDate = (LocalDate) dateValue;
+                if (isEndDate) {
+                    return localDate.atTime(23, 59, 59).atOffset(ZoneOffset.UTC);
+                }
+                return localDate.atStartOfDay().atOffset(ZoneOffset.UTC);
+            }
+
+            if (dateValue instanceof Instant) {
+                return ((Instant) dateValue).atOffset(ZoneOffset.UTC);
+            }
+
+            if (dateValue instanceof String) {
+                String dateString = (String) dateValue;
+                try {
+                    return OffsetDateTime.parse(dateString);
+                } catch (DateTimeParseException e1) {
+                    try {
+                        return LocalDateTime.parse(dateString).atOffset(ZoneOffset.UTC);
+                    } catch (DateTimeParseException e2) {
+                        try {
+                            LocalDate localDate = LocalDate.parse(dateString);
+                            if (isEndDate) {
+                                return localDate.atTime(23, 59, 59).atOffset(ZoneOffset.UTC);
+                            }
+                            return localDate.atStartOfDay().atOffset(ZoneOffset.UTC);
+                        } catch (DateTimeParseException e3) {
+                            log.warn("Formato de data nao reconhecido: {}", dateValue);
+                            return null;
+                        }
+                    }
+                }
+            }
+
+            if (dateValue instanceof Number) {
+                return Instant.ofEpochMilli(((Number) dateValue).longValue())
+                        .atOffset(ZoneOffset.UTC);
+            }
+
+            log.warn("Tipo de data nao suportado: {}", dateValue.getClass());
+            return null;
+        } catch (Exception e) {
+            log.error("Erro ao converter OffsetDateTime: {}", e.getMessage(), e);
             return null;
         }
     }
