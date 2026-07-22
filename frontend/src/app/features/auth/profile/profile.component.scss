@@ -1,0 +1,97 @@
+.full-width {
+  width: 100%;
+}
+
+.bh-cta {
+  border-radius: var(--bh-radius-input-start) var(--bh-radius-input-end) var(--bh-radius-input-end) var(--bh-radius-input-start) !important;
+  background-color: var(--bh-yellow) !important;
+  color: var(--bh-ink) !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.01em;
+  min-height: 44px;
+  padding-inline: 1.5rem !important;
+  box-shadow: none !important;
+
+  &:hover:not([disabled]) {
+    filter: brightness(0.96);
+  }
+
+  &[disabled] {
+    opacity: 0.55;
+  }
+}
+
+.page-shell {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.page-content {
+  flex: 1;
+  padding: 1.25rem 1.5rem 2rem;
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.header-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.header-row h1 {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--bh-ink-deep);
+}
+
+.profile-back {
+  --mat-button-text-label-text-color: var(--bh-ink);
+  --mat-button-text-state-layer-color: transparent;
+  --mat-button-text-hover-state-layer-opacity: 0;
+  color: var(--bh-ink) !important;
+  border-radius: var(--bh-radius-input-start) var(--bh-radius-input-end) var(--bh-radius-input-end) var(--bh-radius-input-start) !important;
+
+  &:hover {
+    background-color: var(--bh-yellow) !important;
+    --mat-button-text-label-text-color: var(--bh-ink);
+    color: var(--bh-ink) !important;
+  }
+}
+
+.profile-content {
+  max-width: 520px;
+}
+
+.profile-subtitle {
+  margin: 0 0 1.25rem;
+  color: var(--bh-muted);
+  font-size: 0.95rem;
+}
+
+.profile-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.profile-actions {
+  margin-top: 0.5rem;
+}
+
+button[matSuffix] {
+  margin-right: 0.5rem;
+}
+
+@media (max-width: 600px) {
+  .page-content {
+    padding: 1rem;
+  }
+}
