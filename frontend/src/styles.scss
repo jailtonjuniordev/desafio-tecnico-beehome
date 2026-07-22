@@ -12,7 +12,7 @@
   --bh-muted: #5a6577;
   --bh-radius: 16px;
   --bh-radius-input-start: 8px;
-  --bh-radius-input-end: 16px;
+  --bh-radius-input-end: 32px;
   --bh-radius-pill: 999px;
 }
 
@@ -39,7 +39,10 @@ html {
 @include mat.form-field-overrides(
   (
     // Non-zero shape so Material sizes the leading piece wide enough for the left curve.
-    container-shape: var(--bh-radius-input-start),
+    filled-container-shape: var(--bh-radius-input-start),
+    outlined-label-text-color: var(--bh-ink),
+    outlined-focus-label-text-color: var(--bh-ink),
+    outlined-hover-label-text-color: var(--bh-ink),
   )
 );
 
@@ -60,7 +63,8 @@ html {
 
 html,
 body {
-  height: 100%;
+  min-height: 100%;
+  height: auto;
 }
 
 body {
@@ -107,6 +111,40 @@ a {
   .mdc-snackbar__label,
   .mat-mdc-snack-bar-label {
     padding: 0 !important;
+  }
+}
+
+.bh-dialog-panel {
+  .mat-mdc-dialog-container,
+  .mdc-dialog__container {
+    border-radius: 20px !important;
+  }
+
+  .mat-mdc-dialog-surface,
+  .mdc-dialog__surface {
+    border-radius: 20px !important;
+    background: var(--bh-surface) !important;
+    box-shadow: 0 12px 40px rgba(30, 30, 30, 0.12) !important;
+    padding: 1.25rem 1.75rem 1.5rem !important;
+    overflow: visible;
+  }
+
+  .mat-mdc-dialog-title,
+  .mdc-dialog__title {
+    padding: 0 !important;
+  }
+
+  .mat-mdc-dialog-content,
+  .mdc-dialog__content {
+    padding: 0 !important;
+    margin: 0 !important;
+    max-height: none;
+  }
+
+  .mat-mdc-dialog-actions,
+  .mdc-dialog__actions {
+    padding: 0 !important;
+    min-height: 0 !important;
   }
 }
 
