@@ -1,0 +1,74 @@
+.brand-logo {
+  display: block;
+  height: 28px;
+  width: auto;
+}
+
+.toolbar-brand {
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.app-toolbar {
+  background: var(--bh-ink) !important;
+  color: #ffffff !important;
+  min-height: 64px;
+  width: min(1478px, calc(100% - 1.5rem)) !important;
+  margin: 0.75rem auto 0;
+  padding-inline: 1rem;
+  border-radius: var(--bh-radius-input-start) 36px 36px var(--bh-radius-input-start);
+  box-sizing: border-box;
+
+  .toolbar-user {
+    margin-right: 0.75rem;
+    font-size: 0.9rem;
+    opacity: 0.85;
+    color: #ffffff;
+  }
+
+  .toolbar-user-link {
+    text-decoration: none;
+    cursor: pointer;
+
+    &:hover {
+      opacity: 1;
+      text-decoration: underline;
+    }
+  }
+
+  .toolbar-profile {
+    color: var(--bh-yellow) !important;
+    margin-right: 0.25rem;
+
+    --mat-icon-button-state-layer-color: transparent;
+    --mat-icon-button-hover-state-layer-opacity: 0;
+    --mat-icon-button-focus-state-layer-opacity: 0;
+    --mat-icon-button-pressed-state-layer-opacity: 0;
+
+    .mat-mdc-button-persistent-ripple,
+    .mdc-icon-button__ripple {
+      display: none;
+    }
+  }
+
+  .toolbar-logout {
+    color: #ffffff !important;
+    border-radius: var(--bh-radius-input-start) var(--bh-radius-input-end)
+      var(--bh-radius-input-end) var(--bh-radius-input-start) !important;
+  }
+}
+
+.toolbar-spacer {
+  flex: 1 1 auto;
+}
+
+@media (max-width: 600px) {
+  .app-toolbar .toolbar-user {
+    display: none;
+  }
+
+  .app-toolbar {
+    width: min(1478px, calc(100% - 1rem)) !important;
+    margin: 0.5rem auto 0;
+  }
+}
