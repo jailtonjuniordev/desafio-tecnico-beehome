@@ -38,6 +38,16 @@ services:
     networks:
       - beehome
 
+  frontend:
+    build: ./frontend
+    container_name: beehome-tecnico-frontend
+    depends_on:
+      - backend
+    ports:
+      - "4200:4200"
+    networks:
+      - beehome
+
 volumes:
   beehome_mysql_data:
 
