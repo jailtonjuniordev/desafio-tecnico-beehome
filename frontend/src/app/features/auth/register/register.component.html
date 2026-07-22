@@ -1,0 +1,55 @@
+<app-auth-modal
+  subtitle="Crie sua conta para comecar"
+  btnText="Registrar"
+  [loading]="loading()"
+  footerText="Ja tem conta?"
+  footerLinkText="Fazer login"
+  footerLink="/login"
+  (btnAction)="onSubmit()"
+>
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Usuario</mat-label>
+      <input matInput formControlName="username" autocomplete="username"/>
+      @if (form.controls.username.hasError('required')) {
+        <mat-error>Usuario e obrigatorio</mat-error>
+      } @else if (form.controls.username.hasError('minlength')) {
+        <mat-error>Minimo de 3 caracteres</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>E-mail</mat-label>
+      <input matInput type="email" formControlName="email" autocomplete="email"/>
+      @if (form.controls.email.hasError('required')) {
+        <mat-error>E-mail e obrigatorio</mat-error>
+      } @else if (form.controls.email.hasError('email')) {
+        <mat-error>Informe um e-mail valido</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Senha</mat-label>
+      <input
+        matInput
+        [type]="hidePassword() ? 'password' : 'text'"
+        formControlName="password"
+        autocomplete="new-password"
+      />
+      <button
+        mat-icon-button
+        matSuffix
+        type="button"
+        (click)="togglePasswordVisibility()"
+        [attr.aria-label]="hidePassword() ? 'Mostrar senha' : 'Ocultar senha'"
+      >
+        <mat-icon>{{ hidePassword() ? 'visibility_off' : 'visibility' }}</mat-icon>
+      </button>
+      @if (form.controls.password.hasError('required')) {
+        <mat-error>Senha e obrigatoria</mat-error>
+      } @else if (form.controls.password.hasError('minlength')) {
+        <mat-error>Minimo de 8 caracteres</mat-error>
+      }
+    </mat-form-field>
+  </form>
+</app-auth-modal>

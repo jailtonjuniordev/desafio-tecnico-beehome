@@ -1,0 +1,103 @@
+<div class="page-shell">
+  <app-header />
+
+  @if (loading()) {
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+  }
+
+  <main class="page-content">
+    <section class="tasks-intro">
+      <h2 class="tasks-greeting">Olá, {{ username }}!</h2>
+      <p class="tasks-pitch">
+        Esse organizador de tarefas foi criado para o desafio técnico para a vaga Fullstack da
+        <img
+          class="pitch-logo"
+          src="logotipo-beehome-branco.svg"
+          alt="BeeHome"
+        />
+      </p>
+    </section>
+
+    <div class="header-row">
+      <h1>Minhas tarefas</h1>
+      <button mat-flat-button class="bh-cta" type="button" (click)="openCreateDialog()">
+        <mat-icon>add</mat-icon>
+        Nova tarefa
+      </button>
+    </div>
+
+    <div class="filters-row">
+      <mat-form-field appearance="outline" class="filter-field">
+        <mat-label>Status</mat-label>
+        <mat-select [(ngModel)]="statusFilter" (selectionChange)="onFilterChange()">
+          <mat-option value="">Todos</mat-option>
+          @for (status of statusOptions; track status) {
+            @if (status) {
+              <mat-option [value]="status">{{ statusLabels[status] }}</mat-option>
+            }
+          }
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="filter-field">
+        <mat-label>Ordenar por prazo final</mat-label>
+        <mat-select [(ngModel)]="sort" (selectionChange)="onFilterChange()">
+          <mat-option value="deadline,asc">Mais proximo</mat-option>
+          <mat-option value="deadline,desc">Mais distante</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="filter-field">
+        <mat-label>Prazo inicial</mat-label>
+        <input
+          matInput
+          [matDatepicker]="startPicker"
+          [(ngModel)]="deadlineStart"
+          (dateChange)="onDeadlineStartChange()"
+        />
+        <mat-datepicker-toggle matIconSuffix [for]="startPicker"></mat-datepicker-toggle>
+        <mat-datepicker #startPicker></mat-datepicker>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="filter-field">
+        <mat-label>Prazo final</mat-label>
+        <input
+          matInput
+          [matDatepicker]="endPicker"
+          [(ngModel)]="deadlineEnd"
+          [disabled]="!deadlineStart"
+          (dateChange)="onDeadlineEndChange()"
+        />
+        <mat-datepicker-toggle
+          matIconSuffix
+          [for]="endPicker"
+          [disabled]="!deadlineStart"
+        ></mat-datepicker-toggle>
+        <mat-datepicker #endPicker></mat-datepicker>
+      </mat-form-field>
+
+      @if (deadlineStart || deadlineEnd) {
+        <button
+          mat-icon-button
+          type="button"
+          class="clear-deadline-filter"
+          matTooltip="Limpar filtro de prazo"
+          aria-label="Limpar filtro de prazo"
+          (click)="clearDeadlineFilter()"
+        >
+          <mat-icon>close</mat-icon>
+        </button>
+      }
+    </div>
+
+    <app-task-table
+      [tasks]="tasks()"
+      [totalElements]="totalElements()"
+      [pageIndex]="pageIndex"
+      [pageSize]="pageSize"
+      (editTask)="openEditDialog($event)"
+      (deleteTask)="confirmDelete($event)"
+      (pageChange)="onPageChange($event)"
+    />
+  </main>
+</div>

@@ -1,0 +1,35 @@
+<div class="auth-page">
+  <div class="auth-card">
+    @if (loading()) {
+      <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+    }
+
+    <img
+      class="brand-logo"
+      src="logotipo-beehome-branco.svg"
+      alt="BeeHome"
+      width="200"
+      height="50"
+    />
+    <p class="subtitle">{{ subtitle() }}</p>
+
+    <ng-content />
+
+    <div class="auth-actions">
+      <button
+        mat-flat-button
+        class="bh-cta"
+        type="button"
+        [disabled]="loading()"
+        (click)="btnAction.emit()"
+      >
+        {{ btnText() }}
+      </button>
+    </div>
+
+    <p class="auth-footer">
+      {{ footerText() }}
+      <a [routerLink]="footerLink()">{{ footerLinkText() }}</a>
+    </p>
+  </div>
+</div>

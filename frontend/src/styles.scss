@@ -1,0 +1,151 @@
+@use '@angular/material' as mat;
+@use './theme-colors' as bh-theme;
+
+:root {
+  --bh-yellow: #ffdd00;
+  --bh-yellow-soft: #fff8c2;
+  --bh-yellow-wash: #fffce8;
+  --bh-ink: #1e1e1e;
+  --bh-ink-deep: #030503;
+  --bh-blue: #1a2eeb;
+  --bh-surface: #ffffff;
+  --bh-muted: #5a6577;
+  --bh-radius: 16px;
+  --bh-radius-input-start: 8px;
+  --bh-radius-input-end: 32px;
+  --bh-radius-pill: 999px;
+}
+
+html {
+  @include mat.theme(
+    (
+      color: (
+        theme-type: light,
+        primary: bh-theme.$primary-palette,
+        tertiary: bh-theme.$tertiary-palette,
+      ),
+      typography: Lexend,
+      density: -3,
+    ),
+    $overrides: (
+      primary: var(--bh-yellow),
+      on-primary: var(--bh-ink),
+      primary-container: var(--bh-yellow-soft),
+      on-primary-container: var(--bh-ink),
+    )
+  );
+}
+
+@include mat.form-field-overrides(
+  (
+    // Non-zero shape so Material sizes the leading piece wide enough for the left curve.
+    filled-container-shape: var(--bh-radius-input-start),
+    outlined-label-text-color: var(--bh-ink),
+    outlined-focus-label-text-color: var(--bh-ink),
+    outlined-hover-label-text-color: var(--bh-ink),
+  )
+);
+
+.mat-mdc-form-field {
+  // Override only the right side (Material applies the same shape to all corners).
+  .mdc-notched-outline .mdc-notched-outline__trailing {
+    border-top-right-radius: var(--bh-radius-input-end) !important;
+    border-bottom-right-radius: var(--bh-radius-input-end) !important;
+  }
+
+  // Ensure left curve stays visible if Material collapses leading width.
+  .mdc-notched-outline .mdc-notched-outline__leading {
+    width: max(12px, var(--bh-radius-input-start)) !important;
+    border-top-left-radius: var(--bh-radius-input-start) !important;
+    border-bottom-left-radius: var(--bh-radius-input-start) !important;
+  }
+}
+
+html,
+body {
+  min-height: 100%;
+  height: auto;
+}
+
+body {
+  margin: 0;
+  font-family: Lexend, Arial, Helvetica, sans-serif;
+  background: linear-gradient(
+    160deg,
+    var(--bh-yellow-soft) 0%,
+    var(--bh-yellow-wash) 45%,
+    #ffffff 100%
+  );
+  background-attachment: fixed;
+  color: var(--bh-ink);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+a {
+  color: var(--bh-blue);
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.bh-snack-panel {
+  padding: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  max-width: min(420px, 94vw);
+
+  .mdc-snackbar__surface,
+  .mat-mdc-snackbar-surface {
+    padding: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    min-width: 0 !important;
+  }
+
+  .mdc-snackbar__label,
+  .mat-mdc-snack-bar-label {
+    padding: 0 !important;
+  }
+}
+
+.bh-dialog-panel {
+  .mat-mdc-dialog-container,
+  .mdc-dialog__container {
+    border-radius: 20px !important;
+  }
+
+  .mat-mdc-dialog-surface,
+  .mdc-dialog__surface {
+    border-radius: 20px !important;
+    background: var(--bh-surface) !important;
+    box-shadow: 0 12px 40px rgba(30, 30, 30, 0.12) !important;
+    padding: 1.25rem 1.75rem 1.5rem !important;
+    overflow: visible;
+  }
+
+  .mat-mdc-dialog-title,
+  .mdc-dialog__title {
+    padding: 0 !important;
+  }
+
+  .mat-mdc-dialog-content,
+  .mdc-dialog__content {
+    padding: 0 !important;
+    margin: 0 !important;
+    max-height: none;
+  }
+
+  .mat-mdc-dialog-actions,
+  .mdc-dialog__actions {
+    padding: 0 !important;
+    min-height: 0 !important;
+  }
+}
+
+
