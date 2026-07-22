@@ -7,7 +7,8 @@
 }
 
 .bh-cta {
-  border-radius: var(--bh-radius-pill) !important;
+  border-radius: var(--bh-radius-input-start) var(--bh-radius-input-end)
+    var(--bh-radius-input-end) var(--bh-radius-input-start) !important;
   background-color: var(--bh-yellow) !important;
   color: var(--bh-ink) !important;
   font-weight: 600 !important;
