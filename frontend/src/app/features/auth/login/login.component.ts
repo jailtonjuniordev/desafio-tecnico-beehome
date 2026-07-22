@@ -6,6 +6,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { HttpErrorResponse } from '@angular/common/http';
+import { translateApiErrorMessage } from '../../../core/constants/api-error-messages';
 import { AuthService } from '../../../core/services/auth.service';
 import { NotificationService } from '../../../core/services/notification.service';
 import { AuthModalComponent } from '../../../shared/components/auth-modal/auth-modal.component';
@@ -66,11 +67,8 @@ export class LoginComponent {
     if (error.status === 0) {
       return 'Nao foi possivel conectar ao servidor.';
     }
-    if (error.status === 400 || error.status === 401 || error.status === 403) {
-      return 'Credenciais invalidas. Verifique e-mail e senha.';
-    }
     if (typeof error.error?.message === 'string') {
-      return error.error.message;
+      return translateApiErrorMessage(error.error.message);
     }
     return 'Falha ao autenticar. Tente novamente.';
   }

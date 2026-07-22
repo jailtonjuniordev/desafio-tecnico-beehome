@@ -6,6 +6,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { HttpErrorResponse } from '@angular/common/http';
+import { translateApiErrorMessage } from '../../../core/constants/api-error-messages';
 import { AuthService } from '../../../core/services/auth.service';
 import { NotificationService } from '../../../core/services/notification.service';
 import { AuthModalComponent } from '../../../shared/components/auth-modal/auth-modal.component';
@@ -67,11 +68,8 @@ export class RegisterComponent {
     if (error.status === 0) {
       return 'Nao foi possivel conectar ao servidor.';
     }
-    if (error.status === 409) {
-      return 'E-mail ja cadastrado.';
-    }
     if (typeof error.error?.message === 'string') {
-      return error.error.message;
+      return translateApiErrorMessage(error.error.message);
     }
     return 'Falha ao registrar. Tente novamente.';
   }

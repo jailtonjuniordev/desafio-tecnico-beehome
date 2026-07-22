@@ -7,6 +7,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatIconModule} from '@angular/material/icon';
 import {MatInputModule} from '@angular/material/input';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
+import {translateApiErrorMessage} from '../../../core/constants/api-error-messages';
 import {AuthService} from '../../../core/services/auth.service';
 import {NotificationService} from '../../../core/services/notification.service';
 import {UpdateProfileRequest} from '../models/auth.model';
@@ -144,7 +145,7 @@ export class ProfileComponent implements OnInit {
       return 'Nao foi possivel conectar ao servidor.';
     }
     if (typeof error.error?.message === 'string') {
-      return error.error.message;
+      return translateApiErrorMessage(error.error.message);
     }
     return 'Falha ao carregar o perfil.';
   }
@@ -153,11 +154,8 @@ export class ProfileComponent implements OnInit {
     if (error.status === 0) {
       return 'Nao foi possivel conectar ao servidor.';
     }
-    if (error.status === 409) {
-      return 'E-mail ja cadastrado.';
-    }
     if (typeof error.error?.message === 'string') {
-      return error.error.message;
+      return translateApiErrorMessage(error.error.message);
     }
     return 'Falha ao atualizar o perfil. Tente novamente.';
   }
