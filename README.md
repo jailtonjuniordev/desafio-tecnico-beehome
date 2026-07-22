@@ -1,4 +1,4 @@
-# desafio-tecnico-beehome
+# Desafio Técnico BeeHome
 
 Sistema de gerenciamento de tarefas (desafio técnico BeeHome): backend Spring Boot + frontend Angular.
 
@@ -15,8 +15,14 @@ Sistema de gerenciamento de tarefas (desafio técnico BeeHome): backend Spring B
 Documentação completa da API (endpoints, regras de negócio, Swagger e exemplos):
 
 - [backend/README.md](backend/README.md)
-- Swagger UI (com a API no ar): http://localhost:8080/swagger-ui.html
-- Collection Postman: [backend/postman/BeeHome-Desafio-Tecnico.postman_collection.json](backend/postman/BeeHome-Desafio-Tecnico.postman_collection.json)
+- Swagger UI (com a API em execução): http://localhost:8080/swagger-ui.html
+- Coleção Postman: [backend/postman/BeeHome-Desafio-Tecnico.postman_collection.json](backend/postman/BeeHome-Desafio-Tecnico.postman_collection.json)
+
+## Frontend
+
+Documentação de execução, estrutura e contrato da API no cliente:
+
+- [frontend/README.md](frontend/README.md)
 
 ## Subir o ambiente com Docker
 
