@@ -1,0 +1,55 @@
+<h2 mat-dialog-title class="dialog-title">{{ isEdit ? 'Editar tarefa' : 'Nova tarefa' }}</h2>
+
+<mat-dialog-content>
+  <form [formGroup]="form" id="task-form" (ngSubmit)="onSubmit()">
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Título</mat-label>
+      <input matInput formControlName="title" />
+      @if (form.controls.title.hasError('required')) {
+        <mat-error>Título é obrigatório</mat-error>
+      } @else if (form.controls.title.hasError('maxlength')) {
+        <mat-error>Maximo de 255 caracteres</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Descrição</mat-label>
+      <textarea matInput rows="3" formControlName="description"></textarea>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Status</mat-label>
+      <mat-select formControlName="status">
+        @for (status of statuses; track status) {
+          <mat-option [value]="status">{{ statusLabels[status] }}</mat-option>
+        }
+      </mat-select>
+      @if (form.controls.status.hasError('required')) {
+        <mat-error>Status é obrigatório</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Prazo Final</mat-label>
+      <input matInput [matDatepicker]="picker" formControlName="deadline" />
+      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+      @if (form.controls.deadline.hasError('required')) {
+        <mat-error>Prazo Final é obrigatório</mat-error>
+      } @else if (form.controls.deadline.hasError('pastDeadline')) {
+        <mat-error>Prazo Final não pode ser no passado</mat-error>
+      } @else if (form.controls.deadline.hasError('invalidDate')) {
+        <mat-error>Data invalida</mat-error>
+      }
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions class="dialog-actions">
+  <button mat-button class="bh-ghost" type="button" (click)="onCancel()">
+    Cancelar
+  </button>
+  <button mat-flat-button class="bh-cta" type="submit" form="task-form">
+    {{ isEdit ? 'Salvar' : 'Criar' }}
+  </button>
+</mat-dialog-actions>
