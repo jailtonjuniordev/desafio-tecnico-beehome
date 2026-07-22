@@ -1,0 +1,124 @@
+.full-width {
+  width: 100%;
+}
+
+.bh-cta {
+  border-radius: var(--bh-radius-input-start) var(--bh-radius-input-end) var(--bh-radius-input-end) var(--bh-radius-input-start) !important;
+  background-color: var(--bh-yellow) !important;
+  color: var(--bh-ink) !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.01em;
+  min-height: 44px;
+  padding-inline: 1.5rem !important;
+  box-shadow: none !important;
+
+  &:hover:not([disabled]) {
+    filter: brightness(0.96);
+  }
+
+  &[disabled] {
+    opacity: 0.55;
+  }
+}
+
+.page-shell {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.page-content {
+  flex: 1;
+  padding: 1.25rem 1.5rem 2rem;
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.tasks-intro {
+  margin-bottom: 1.75rem;
+}
+
+.tasks-greeting {
+  margin: 0 0 0.5rem;
+  font-size: 1.75rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--bh-ink-deep);
+}
+
+.tasks-pitch {
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: var(--bh-muted);
+}
+
+.pitch-logo {
+  display: inline-block;
+  height: 1.45em;
+  width: auto;
+  vertical-align: -0.35em;
+  margin-left: 0.2rem;
+  filter: brightness(0);
+}
+
+.header-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.header-row h1 {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--bh-ink-deep);
+}
+
+.filters-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.filters-row .filter-field {
+  min-width: 160px;
+  flex: 1 1 160px;
+  max-width: 240px;
+}
+
+.clear-deadline-filter {
+  color: var(--bh-muted);
+  margin-bottom: 1.2rem;
+}
+
+.clear-deadline-filter:hover {
+  border: 1px solid var(--bh-muted);
+  padding: 0px;
+}
+
+mat-datepicker-toggle {
+  margin-right: 0.5rem;
+}
+
+@media (max-width: 600px) {
+  .page-content {
+    padding: 1rem;
+  }
+
+  .filters-row .filter-field {
+    max-width: none;
+  }
+
+  mat-datepicker-toggle {
+    margin-right: 1rem;
+  }
+}
