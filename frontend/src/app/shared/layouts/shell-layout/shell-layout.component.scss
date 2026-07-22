@@ -1,21 +1,21 @@
 .shell-layout {
-  height: 100vh;
-  overflow: hidden;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
 }
 
 .shell-body {
-  flex: 1;
+  flex: 1 0 auto;
   display: flex;
   flex-direction: column;
-  min-height: 0;
-  overflow: auto;
 
   > *:not(router-outlet) {
-    flex: 1;
+    flex: 1 0 auto;
     display: flex;
     flex-direction: column;
-    min-height: 0;
   }
+}
+
+app-footer {
+  flex-shrink: 0;
 }
